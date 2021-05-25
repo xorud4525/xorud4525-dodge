@@ -7,6 +7,8 @@ public class playercontroller : MonoBehaviour
     private Rigidbody playerRigidbody;
     public float speed = 8f;
     // Start is called before the first frame update
+    public int hp = 100;
+    public HPBar hpbar;
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody>(); 
@@ -25,7 +27,26 @@ public class playercontroller : MonoBehaviour
 
         playerRigidbody.velocity = newVelocity;
     }
-    public void Die()
+    public void GetHeal(int heal)
+    {
+        hp += heal;
+        if(hp>100)
+        {
+            hp = 100;
+        }
+        hpbar.SetHP(hp);
+    }
+    public void GetDamage(int damage)
+    {
+        hp -= damage;
+        hpbar.SetHP(hp);
+        if(hp<=0)
+        {
+            Die();
+        }
+
+    }
+    void Die()
     {
         gameObject.SetActive(false);
         GameManager gameManager = FindObjectOfType<GameManager>();

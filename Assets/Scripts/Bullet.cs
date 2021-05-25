@@ -6,12 +6,17 @@ public class Bullet : MonoBehaviour
 {
     public float speed = 8f;
     private Rigidbody bulletrigidbody;
+    public int damage = 30;
     void Start()
     {
         bulletrigidbody = GetComponent<Rigidbody>();
         bulletrigidbody.velocity = transform.forward * speed;
 
         Destroy(gameObject, 3f);
+    }
+    void Update()
+    {
+        
     }
     void OnTriggerEnter(Collider other)
     {
@@ -21,14 +26,13 @@ public class Bullet : MonoBehaviour
         
             if(playercontroller!=null)
             {
-                playercontroller.Die();
+                playercontroller.GetDamage(damage);
+                Destroy(gameObject);
+                //playercontroller.Die();
             }
         }
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
